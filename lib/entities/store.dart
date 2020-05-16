@@ -1,18 +1,19 @@
 class Store {
-  String title;
-  String text;
-  String img;
   String address;
+  String description;
+  String deal;
+  String business;
+  String title;
+  String img;
 
-  Store(this.title, this.text, this.img, this.address);
+  Store(this.address, this.description, this.deal, this.business, this.title, this.img);
 
   Store.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    text = json['text'];
-    img = json['img'];
     address = json['address'];
+    description = json['description'];
+    deal = json['deal'];
+    business = json['business'];
+    title = json['title'];
+    img = json['img'];
   }
 }
-
-//
-//
