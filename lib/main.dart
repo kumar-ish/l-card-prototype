@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lcardprototype/pages/home.dart';
 import 'package:lcardprototype/pages/map.dart';
 import 'package:lcardprototype/pages/places.dart';
+import 'package:lcardprototype/pages/buy.dart';
 
 
 void main() => runApp(App());
@@ -21,8 +22,8 @@ class App extends StatelessWidget {
         "/": (context) => HomePage(),
         "/places": (context) => PlacesPage(),
 //        "/map": (context) => MapPage(),
+        "/buy": (context) => BuyPage()
       }
-//      initialRoute: "/home",
 
     );
   }
