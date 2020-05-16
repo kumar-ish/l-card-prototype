@@ -3,6 +3,7 @@ import 'package:startupnamer/entities/store.dart';
 import 'package:startupnamer/json.dart';
 import 'dart:convert';
 import 'package:flip_card/flip_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(App());
 const PrimaryColour = const Color(0xFFF7CED7);
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
         title: Image.asset(
           'assets/images/l-card_logo.png',
           fit: BoxFit.cover,
-          width: 180,
+          width: 160,
         ),
         centerTitle: true,
         elevation: 0,
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
         ),
         itemBuilder: (context, index) {
           return Padding(
-              padding: EdgeInsets.all(6.0),
+              padding: EdgeInsets.fromLTRB(6.0, 4.0, 6.0, 4.0),
               child: FlipCard(
                 direction: FlipDirection.VERTICAL, // default
                 front: Container(
@@ -99,28 +100,52 @@ class _HomePageState extends State<HomePage> {
                       color: Color(0xFFF6F2F2)),
                   child: Center(
                       child: Padding(
-                    padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                    padding: EdgeInsets.fromLTRB(30, 12, 30, 0),
                     child: Column(
-
-                      children: <Widget>[
+                      children: [
                         Text(_stores[index].title.toUpperCase(),
                             style: TextStyle(
                                 fontFamily: 'Brandon',
-                                fontSize: 12,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFFF0008C))),
-                        Text(_stores[index].address,
-                            style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFF0008C)),
+                        Text(
+                          _stores[index].address,
+                          style: TextStyle(
+                              fontFamily: 'Brandon',
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFF0008C)),
                         ),
                         Text(
                           _stores[index].description,
-                          style: TextStyle(color: Color(0xFFF0008C)),
+                          style: TextStyle(
+                              fontFamily: "Brandon", color: Color(0xFFF0008C)),
                         ),
-                        Text(_stores[index].deal),
-                        Text(_stores[index].business)
+                        Text(_stores[index].deal,
+                            style: TextStyle(
+                                fontFamily: "Brandon",
+                                color: Color(0xFFF0008C))),
+                        new InkWell(
+                            child: Padding(
+                                padding:
+                                    EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Color(0xFFF7CDE7),
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      color: Color(0xFFF7CDE7)),
+                                  child: Padding(
+                                      padding: EdgeInsets.fromLTRB(
+                                          20.0, 6.0, 20.0, 6.0),
+                                      child: Text(
+                                        "GO TO BUSINESS",
+                                        style: TextStyle(fontFamily: "Brandon"),
+                                      )),
+                                )),
+                            onTap: () => launch(_stores[index].business)),
                       ],
                     ),
                   )),
