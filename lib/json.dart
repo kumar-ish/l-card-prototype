@@ -1165,7 +1165,7 @@ const jsonString ="""{
             ],
             "description": "Since 1975 the Institute of Modern Art has been the hub of the Brisbane\u2019s contemporary art scene, presenting an annual program of exhibitions, public programs, publications, and offsite programs by Queensland, Australian, and international artists. ",
             "deal": [
-                " "
+                "15% off IMA publications (in-store or online using code at ima.org.au)"
             ],
             "business": "https://ima.org.au",
             "title": "Institute of Modern Art",
