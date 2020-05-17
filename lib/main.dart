@@ -24,7 +24,6 @@ class App extends StatelessWidget {
         "/map": (context) => MapPage(),
         "/buy": (context) => BuyPage()
       }
-
     );
   }
 }
