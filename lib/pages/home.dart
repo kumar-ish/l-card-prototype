@@ -51,20 +51,32 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: _createChildren() +
-          <Widget>[
-            new FlatButton(
-              child: Text("BUY THE L CARD",
-                  style: TextStyle(
-                      fontFamily: 'Brandon',
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFF0008C),
-                      letterSpacing: 4)),
-              onPressed: () {
-                Navigator.pushNamed(context, "/buy");
-              },
-            )
-          ],
+              <Widget>[
+                new FlatButton(
+                  child: Text("BUY THE L CARD",
+                      style: TextStyle(
+                          fontFamily: 'Brandon',
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFF0008C),
+                          letterSpacing: 4)),
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/buy");
+                  },
+                ),
+                new FlatButton(
+                  child: Text("MAPS",
+                      style: TextStyle(
+                          fontFamily: 'Brandon',
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFF0008C),
+                          letterSpacing: 4)),
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/map");
+                  },
+                )
+              ],
         ),
       ),
     );
