@@ -22,12 +22,7 @@ class _MyAppState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
-        primaryColor: PrimaryColour,
-      ),
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
           title: Image.asset(
@@ -45,7 +40,6 @@ class _MyAppState extends State<MapPage> {
             zoom: 11.0,
           ),
         ),
-      ),
     );
   }
 }
