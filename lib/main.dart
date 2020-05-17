@@ -20,10 +20,8 @@ class App extends StatelessWidget {
       routes:{
         "/": (context) => HomePage(),
         "/places": (context) => PlacesPage(),
-//        "/map": (context) => MapPage(),
+        "/map": (context) => MapPage(),
       }
-//      initialRoute: "/home",
-
     );
   }
 }
