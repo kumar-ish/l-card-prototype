@@ -1,7 +1,7 @@
 class Store {
-  String address;
+  List<dynamic> address;
   String description;
-  String deal;
+  List<dynamic> deal;
   String business;
   String title;
   String img;

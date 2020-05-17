@@ -27,6 +27,14 @@ class Debouncer {
 }
 
 class _PlacesPageState extends State<PlacesPage> {
+  final addressStyle = TextStyle(
+      fontFamily: 'Brandon',
+      fontWeight: FontWeight.bold,
+      color: Color(0xFFF0008C),
+      fontSize: 11);
+  final dealStyle =
+      TextStyle(fontFamily: "Brandon", color: Color(0xFFF0008C), fontSize: 10);
+
   final PrimaryColour = const Color(0xFFF7CED7);
   final _debouncer = Debouncer(milliseconds: 500);
   List<Store> _stores = List<Store>();
@@ -40,6 +48,19 @@ class _PlacesPageState extends State<PlacesPage> {
     }
     return _stores;
   }
+
+  List<Widget> _createPlaceDetailsChildren(store, style, info) {
+    return List<Widget>.generate(
+      info == "address" ? store.address.length : store.deal.length,
+      (int index) {
+        return Text(
+          info == "address" ? store.address[index] : store.deal[index],
+          style: style,
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
 //    Map data = ModalRoute.of(context).settings.arguments;
@@ -88,8 +109,8 @@ class _PlacesPageState extends State<PlacesPage> {
                     setState(() {
                       _filteredStores = _stores
                           .where((u) => (u.title
-                          .toLowerCase()
-                          .contains(string.toLowerCase())))
+                              .toLowerCase()
+                              .contains(string.toLowerCase())))
                           .toList();
                     });
                   });
@@ -132,56 +153,54 @@ class _PlacesPageState extends State<PlacesPage> {
                       child: Padding(
                     padding: EdgeInsets.fromLTRB(20, 12, 20, 0),
                     child: Column(
-                      children: [
-                        Text(_filteredStores[index].title.toUpperCase(),
-                            style: TextStyle(
-                                fontFamily: 'Brandon',
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFF0008C))),
-                        Text(
-                          _filteredStores[index].address,
-                          style: TextStyle(
-                              fontFamily: 'Brandon',
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFF0008C),
-                              fontSize: 11),
-                        ),
-                        Text(
-                          _filteredStores[index].description,
-                          style: TextStyle(
-                              fontFamily: "Brandon",
-                              color: Color(0xFFF0008C),
-                              fontSize: 11),
-                        ),
-                        Text(_filteredStores[index].deal,
-                            style: TextStyle(
-                                fontFamily: "Brandon",
-                                color: Color(0xFFF0008C),
-                                fontSize: 10)),
-                        new InkWell(
-                            child: Padding(
-                                padding:
-                                    EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Color(0xFFF7CDE7),
-                                      ),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      color: Color(0xFFF7CDE7)),
-                                  child: Padding(
-                                      padding: EdgeInsets.fromLTRB(
-                                          20.0, 6.0, 20.0, 6.0),
-                                      child: Text(
-                                        "GO TO BUSINESS",
-                                        style: TextStyle(fontFamily: "Brandon"),
-                                      )),
-                                )),
-                            onTap: () =>
-                                launch(_filteredStores[index].business)),
-                      ],
+                      children: <Widget>[
+                            Text(_filteredStores[index].title.toUpperCase(),
+                                style: TextStyle(
+                                    fontFamily: 'Brandon',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFF0008C))),
+                          ] +
+                          _createPlaceDetailsChildren(
+                              _filteredStores[index], addressStyle, "address") +
+                          [
+                            Text(
+                              _filteredStores[index].description != null
+                                  ? _filteredStores[index].description
+                                  : " ",
+                              style: TextStyle(
+                                  fontFamily: "Brandon",
+                                  color: Color(0xFFF0008C),
+                                  fontSize: 11),
+                            ),
+                          ] +
+                          _createPlaceDetailsChildren(
+                              _filteredStores[index], dealStyle, "deal") +
+                          [
+                            new InkWell(
+                                child: Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        0.0, 10.0, 0.0, 0.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Color(0xFFF7CDE7),
+                                          ),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20)),
+                                          color: Color(0xFFF7CDE7)),
+                                      child: Padding(
+                                          padding: EdgeInsets.fromLTRB(
+                                              20.0, 6.0, 20.0, 6.0),
+                                          child: Text(
+                                            "GO TO BUSINESS",
+                                            style: TextStyle(
+                                                fontFamily: "Brandon"),
+                                          )),
+                                    )),
+                                onTap: () =>
+                                    launch(_filteredStores[index].business)),
+                          ],
                     ),
                   )),
                 ),
