@@ -10,15 +10,28 @@ class _HomePageState extends State<HomePage> {
   void changePage(String category) {
     Navigator.pushNamed(context, "/places", arguments: {"category": category});
   }
-//
-//   List<Widget> _createChildren(){
-//    return List<Widget>.generate(categories.length, (int index) {
-//
-//    });
 
+  List<Widget> _createChildren() {
+    return List<Widget>.generate(
+      categories.length,
+      (int index) {
+        return new FlatButton(
+          child: Text(categories[index].toUpperCase(),
+              style: TextStyle(
+                  fontFamily: 'Brandon',
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFF0008C),
+                  letterSpacing: 4)),
+          onPressed: () {
+            changePage(categories[index]);
+          },
+        );
+      },
+    );
   }
-  List<String> categories = ["retail", "food", "nightlife", "lifestyle"];
 
+  List<String> categories = ["retail", "food", "nightlife", "lifestyle"];
 
   @override
   Widget build(BuildContext context) {
@@ -37,55 +50,8 @@ class _HomePageState extends State<HomePage> {
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            new FlatButton(
-              child: Text("RETAIL",
-                  style: TextStyle(
-                      fontFamily: 'Brandon',
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFF0008C),
-                      letterSpacing: 4)),
-              onPressed: () {
-                changePage("retail");
-              },
-            ),
-            new FlatButton(
-              child: Text("FOOD",
-                  style: TextStyle(
-                      fontFamily: 'Brandon',
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFF0008C),
-                      letterSpacing: 4)),
-              onPressed: () {
-                changePage("food");
-              },
-            ),
-            new FlatButton(
-              child: Text("NIGHTLIFE",
-                  style: TextStyle(
-                      fontFamily: 'Brandon',
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFF0008C),
-                      letterSpacing: 4)),
-              onPressed: () {
-                changePage("nightlife");
-              },
-            ),
-            new FlatButton(
-              child: Text("LIFESTYLE",
-                  style: TextStyle(
-                      fontFamily: 'Brandon',
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFF0008C),
-                      letterSpacing: 4)),
-              onPressed: () {
-                changePage("lifestyle");
-              },
-            ),
+          children: _createChildren() +
+          <Widget>[
             new FlatButton(
               child: Text("BUY THE L CARD",
                   style: TextStyle(
