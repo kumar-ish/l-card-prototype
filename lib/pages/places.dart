@@ -4,17 +4,33 @@ import 'package:lcardprototype/json.dart';
 import 'dart:convert';
 import 'package:flip_card/flip_card.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:async';
 
 class PlacesPage extends StatefulWidget {
   @override
   _PlacesPageState createState() => _PlacesPageState();
 }
 
+class Debouncer {
+  final int milliseconds;
+  VoidCallback action;
+  Timer _timer;
+
+  Debouncer({this.milliseconds});
+
+  run(VoidCallback action) {
+    if (null != _timer) {
+      _timer.cancel();
+    }
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
+  }
+}
+
 class _PlacesPageState extends State<PlacesPage> {
-
   final PrimaryColour = const Color(0xFFF7CED7);
-
+  final _debouncer = Debouncer(milliseconds: 500);
   List<Store> _stores = List<Store>();
+  List<Store> _filteredStores = List<Store>();
 
   List<Store> fetchStores(String category) {
     var _stores = List<Store>();
@@ -24,7 +40,6 @@ class _PlacesPageState extends State<PlacesPage> {
     }
     return _stores;
   }
-
   @override
   void initState() {
 //    Map data = ModalRoute.of(context).settings.arguments;
@@ -38,6 +53,7 @@ class _PlacesPageState extends State<PlacesPage> {
     Map data = ModalRoute.of(context).settings.arguments;
     String category = data["category"];
     _stores = fetchStores(category);
+    _filteredStores = _stores;
 
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
@@ -54,11 +70,34 @@ class _PlacesPageState extends State<PlacesPage> {
         elevation: 0,
       ),
       body: GridView.builder(
+        itemCount: data == null ? 1 : _filteredStores.length + 1,
         gridDelegate: new SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: _width / 3,
+          maxCrossAxisExtent: _width,
           childAspectRatio: 1.5,
         ),
         itemBuilder: (context, index) {
+          if (index == 0) {
+            return new Column(children: [
+              TextField(
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(15.0),
+                  hintText: 'Filter by store name or description',
+                ),
+                onChanged: (string) {
+                  _debouncer.run(() {
+                    setState(() {
+                      _filteredStores = _stores
+                          .where((u) => (u.title
+                          .toLowerCase()
+                          .contains(string.toLowerCase())))
+                          .toList();
+                    });
+                  });
+                },
+              )
+            ]);
+          }
+          index -= 1;
           return Padding(
               padding: EdgeInsets.fromLTRB(6.0, 4.0, 6.0, 4.0),
               child: FlipCard(
@@ -68,11 +107,11 @@ class _PlacesPageState extends State<PlacesPage> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
                         image: DecorationImage(
-                          image: NetworkImage(_stores[index].img),
+                          image: NetworkImage(_filteredStores[index].img),
                           fit: BoxFit.fitWidth,
                         )),
                     child: Center(
-                      child: Text(_stores[index].title.toUpperCase(),
+                      child: Text(_filteredStores[index].title.toUpperCase(),
                           textDirection: TextDirection.ltr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -94,28 +133,32 @@ class _PlacesPageState extends State<PlacesPage> {
                     padding: EdgeInsets.fromLTRB(20, 12, 20, 0),
                     child: Column(
                       children: [
-                        Text(_stores[index].title.toUpperCase(),
+                        Text(_filteredStores[index].title.toUpperCase(),
                             style: TextStyle(
                                 fontFamily: 'Brandon',
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFFF0008C))),
                         Text(
-                          _stores[index].address,
+                          _filteredStores[index].address,
                           style: TextStyle(
                               fontFamily: 'Brandon',
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFFF0008C), fontSize: 11),
+                              color: Color(0xFFF0008C),
+                              fontSize: 11),
                         ),
                         Text(
-                          _stores[index].description,
+                          _filteredStores[index].description,
                           style: TextStyle(
-                              fontFamily: "Brandon", color: Color(0xFFF0008C), fontSize: 11),
+                              fontFamily: "Brandon",
+                              color: Color(0xFFF0008C),
+                              fontSize: 11),
                         ),
-                        Text(_stores[index].deal,
+                        Text(_filteredStores[index].deal,
                             style: TextStyle(
                                 fontFamily: "Brandon",
-                                color: Color(0xFFF0008C), fontSize: 10)),
+                                color: Color(0xFFF0008C),
+                                fontSize: 10)),
                         new InkWell(
                             child: Padding(
                                 padding:
@@ -136,14 +179,14 @@ class _PlacesPageState extends State<PlacesPage> {
                                         style: TextStyle(fontFamily: "Brandon"),
                                       )),
                                 )),
-                            onTap: () => launch(_stores[index].business)),
+                            onTap: () =>
+                                launch(_filteredStores[index].business)),
                       ],
                     ),
                   )),
                 ),
               ));
         },
-        itemCount: _stores.length,
       ),
     );
   }

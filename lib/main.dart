@@ -22,8 +22,6 @@ class App extends StatelessWidget {
         "/places": (context) => PlacesPage(),
         "/map": (context) => MapPage(),
       }
-//      initialRoute: "/home",
-
     );
   }
 }
