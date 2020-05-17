@@ -55,8 +55,8 @@ class _PlacesPageState extends State<PlacesPage> {
       ),
       body: GridView.builder(
         gridDelegate: new SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: _width,
-          childAspectRatio: 1.7,
+          maxCrossAxisExtent: _width / 3,
+          childAspectRatio: 1.5,
         ),
         itemBuilder: (context, index) {
           return Padding(
@@ -91,13 +91,13 @@ class _PlacesPageState extends State<PlacesPage> {
                       color: Color(0xFFF6F2F2)),
                   child: Center(
                       child: Padding(
-                    padding: EdgeInsets.fromLTRB(30, 12, 30, 0),
+                    padding: EdgeInsets.fromLTRB(20, 12, 20, 0),
                     child: Column(
                       children: [
                         Text(_stores[index].title.toUpperCase(),
                             style: TextStyle(
                                 fontFamily: 'Brandon',
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFFF0008C))),
                         Text(
@@ -105,17 +105,17 @@ class _PlacesPageState extends State<PlacesPage> {
                           style: TextStyle(
                               fontFamily: 'Brandon',
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFFF0008C)),
+                              color: Color(0xFFF0008C), fontSize: 11),
                         ),
                         Text(
                           _stores[index].description,
                           style: TextStyle(
-                              fontFamily: "Brandon", color: Color(0xFFF0008C)),
+                              fontFamily: "Brandon", color: Color(0xFFF0008C), fontSize: 11),
                         ),
                         Text(_stores[index].deal,
                             style: TextStyle(
                                 fontFamily: "Brandon",
-                                color: Color(0xFFF0008C))),
+                                color: Color(0xFFF0008C), fontSize: 10)),
                         new InkWell(
                             child: Padding(
                                 padding:

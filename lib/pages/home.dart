@@ -42,6 +42,12 @@ class _HomePageState extends State<HomePage> {
               changePage("lifestyle");
             },
           ),
+          new FlatButton(
+            child: Text("maps"),
+            onPressed: () {
+              Navigator.pushNamed(context, "/map");
+            },
+          ),
         ],
       ),
     );
