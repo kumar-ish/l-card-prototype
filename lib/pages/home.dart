@@ -75,6 +75,18 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.pushNamed(context, "/map");
                   },
+                ),
+                new FlatButton(
+                  child: Text("CONTACT",
+                      style: TextStyle(
+                          fontFamily: 'Brandon',
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFF0008C),
+                          letterSpacing: 4)),
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/contact");
+                  },
                 )
               ],
         ),
