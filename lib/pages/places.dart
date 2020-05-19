@@ -7,6 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 
 class PlacesPage extends StatefulWidget {
+  final String category;
+  PlacesPage(this.category);
   @override
   _PlacesPageState createState() => _PlacesPageState();
 }
@@ -27,6 +29,7 @@ class Debouncer {
 }
 
 class _PlacesPageState extends State<PlacesPage> {
+
   final addressStyle = TextStyle(
       fontFamily: 'Brandon',
       fontWeight: FontWeight.bold,
@@ -63,18 +66,15 @@ class _PlacesPageState extends State<PlacesPage> {
 
   @override
   void initState() {
-//    Map data = ModalRoute.of(context).settings.arguments;
-//    String category = data["category"];
-//    _stores = fetchStores(category);
     super.initState();
+    String category = widget.category;
+    _stores = fetchStores(category);
+    _filteredStores = fetchStores(category);
+
   }
 
   @override
   Widget build(BuildContext context) {
-    Map data = ModalRoute.of(context).settings.arguments;
-    String category = data["category"];
-    _stores = fetchStores(category);
-    _filteredStores = fetchStores(category);
     int count;
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;

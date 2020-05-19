@@ -4,7 +4,6 @@ import 'package:lcardprototype/pages/map.dart';
 import 'package:lcardprototype/pages/places.dart';
 import 'package:lcardprototype/pages/buy.dart';
 
-
 void main() => runApp(App());
 
 class App extends StatelessWidget {
@@ -18,13 +17,22 @@ class App extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
 
-      routes:{
-        "/": (context) => HomePage(),
-        "/places": (context) => PlacesPage(),
-        "/map": (context) => MapPage(),
-        "/buy": (context) => BuyPage()
-      }
+//      routes:{
+//        "/": (context) => HomePage(),
+//        "/places": (context) => PlacesPage(),
+//        "/map": (context) => MapPage(),
+//        "/buy": (context) => BuyPage()
+//      },
+      onGenerateRoute: (RouteSettings settings) {
+        var routes = <String, WidgetBuilder>{
+          "/": (context) => HomePage(),
+          "/places": (context) => PlacesPage(settings.arguments),
+          "/map": (context) => MapPage(),
+          "/buy": (context) => BuyPage(),
+        };
+        WidgetBuilder builder = routes[settings.name];
+        return MaterialPageRoute(builder: (context) => builder(context));
+      },
     );
   }
 }
-

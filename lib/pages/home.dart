@@ -8,7 +8,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   void changePage(String category) {
-    Navigator.pushNamed(context, "/places", arguments: {"category": category});
+    Navigator.pushNamed(context, "/places", arguments: category);
   }
 
   List<Widget> _createChildren() {
